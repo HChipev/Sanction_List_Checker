@@ -8,11 +8,25 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@fortawesome/free-brands-svg-icons": "^6.2.0",
+    "@fortawesome/free-regular-svg-icons": "^6.2.0",
+    "@fortawesome/free-solid-svg-icons": "^6.2.0",
     "@nuxtjs/supabase": "^0.3.1",
     "@nuxtjs/tailwindcss": "^6.6.0",
+    "@tailwindcss/forms": "^0.5.3",
+    "@types/node-schedule": "^2.1.0",
     "autoprefixer": "^10.4.14",
     "nuxt": "^3.3.1",
     "postcss": "^8.4.21",
     "tailwindcss": "^3.2.7"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.2.0",
+    "@fortawesome/vue-fontawesome": "^3.0.1",
+    "@supabase/supabase-js": "^2.11.0",
+    "joi": "^17.8.4",
+    "mailgen": "^2.0.27",
+    "node-schedule": "^2.1.1",
+    "nodemailer": "^6.9.1"
   }
 }

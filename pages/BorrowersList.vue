@@ -3,12 +3,19 @@
     <h1 class="text-3xl font-bold italic text-primery-color my-5">
       Borrowers List
     </h1>
-    <ListTable :EIK="Companies[0].EIK" class="w-full px-5" />
+    <ListTable class="w-full px-5" />
+    <button
+      @click="openedModal = true"
+      class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center">
+      Add New Borrower
+      <ClientOnly
+        ><font-awesome-icon class="w-8 h-8 ml-2" icon="fa-solid fa-plus"
+      /></ClientOnly>
+    </button>
+    <ListAddModal v-if="openedModal" @close="openedModal = false" />
   </div>
 </template>
 <script setup>
-  let { data: Companies, error } = await useSupabaseClient()
-    .from("Companies")
-    .select("EIK");
+  const openedModal = ref(false);
 </script>
 <style></style>
