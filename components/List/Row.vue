@@ -13,58 +13,102 @@
     <td class="p-2 border-x border-primery-color">
       <ClientOnly
         ><font-awesome-icon
-          class="text-green-500 w-8 h-8"
-          icon="fa-solid fa-check"
+          class="w-8 h-8"
+          :class="
+            displaySymbol(1) === symbols.check
+              ? 'text-green-500'
+              : 'text-red-500'
+          "
+          :icon="displaySymbol(1)"
       /></ClientOnly>
     </td>
     <td class="p-2 border-x border-primery-color">
       <ClientOnly
         ><font-awesome-icon
-          class="text-green-500 w-8 h-8"
-          icon="fa-solid fa-check"
+          class="w-8 h-8"
+          :class="
+            displaySymbol(2) === symbols.check
+              ? 'text-green-500'
+              : 'text-red-500'
+          "
+          :icon="displaySymbol(2)"
       /></ClientOnly>
     </td>
     <td class="p-2 border-x border-primery-color">
       <ClientOnly
         ><font-awesome-icon
-          class="text-green-500 w-8 h-8"
-          icon="fa-solid fa-check"
+          class="w-8 h-8"
+          :class="
+            displaySymbol(3) === symbols.check
+              ? 'text-green-500'
+              : 'text-red-500'
+          "
+          :icon="displaySymbol(3)"
       /></ClientOnly>
     </td>
     <td class="p-2 border-x border-primery-color">
       <ClientOnly
         ><font-awesome-icon
-          class="text-red-500 w-8 h-8"
-          icon="fa-solid fa-xmark"
+          class="w-8 h-8"
+          :class="
+            displaySymbol(4) === symbols.check
+              ? 'text-green-500'
+              : 'text-red-500'
+          "
+          :icon="displaySymbol(4)"
       /></ClientOnly>
     </td>
     <td class="p-2 border-x border-primery-color">
       <ClientOnly
         ><font-awesome-icon
-          class="text-red-500 w-8 h-8"
-          icon="fa-solid fa-xmark"
+          class="w-8 h-8"
+          :class="
+            displaySymbol(5) === symbols.check
+              ? 'text-green-500'
+              : 'text-red-500'
+          "
+          :icon="displaySymbol(5)"
       /></ClientOnly>
     </td>
     <td class="p-2 border-x border-primery-color">
       <ClientOnly
         ><font-awesome-icon
-          class="text-red-500 w-8 h-8"
-          icon="fa-solid fa-xmark"
+          class="w-8 h-8"
+          :class="
+            displaySymbol(6) === symbols.check
+              ? 'text-green-500'
+              : 'text-red-500'
+          "
+          :icon="displaySymbol(6)"
       /></ClientOnly>
     </td>
     <td class="p-2 border-x border-primery-color">
       <ClientOnly
         ><font-awesome-icon
-          class="text-red-500 w-8 h-8"
-          icon="fa-solid fa-xmark"
+          class="w-8 h-8"
+          :class="
+            displaySymbol(7) === symbols.check
+              ? 'text-green-500'
+              : 'text-red-500'
+          "
+          :icon="displaySymbol(7)"
       /></ClientOnly>
     </td>
     <td class="p-2 border-x border-primery-color">
       <ClientOnly
         ><font-awesome-icon
-          class="text-red-500 w-8 h-8"
-          icon="fa-solid fa-xmark"
+          class="w-8 h-8"
+          :class="
+            displaySymbol(8) === symbols.check
+              ? 'text-green-500'
+              : 'text-red-500'
+          "
+          :icon="displaySymbol(8)"
       /></ClientOnly>
+    </td>
+    <td
+      class="px-6 py-2 font-medium text-lg text-gray-900 border-x border-primery-color">
+      {{ new Date(company.last_checked).toLocaleString() }}
     </td>
     <td class="px-2 py-4 border-x border-primery-color text-center">
       <button
@@ -89,14 +133,28 @@
     company: Object,
   });
   const search = async function (EIK) {
-    const res = await $fetch(`api/search/${EIK}`);
-    console.log(res);
+    await $fetch(`api/companies/check/${EIK}`);
   };
+  const symbols = reactive({
+    check: "fa-solid fa-check",
+    xmark: "fa-solid fa-xmark",
+  });
 
   const deleteRow = async function (EIK) {
     await $fetch(`api/companies/delete/${EIK}`, {
       method: "DELETE",
     });
+  };
+
+  const displaySymbol = function (id) {
+    if (props.company.sanction_lists) {
+      for (let i = 0; i < props.company.sanction_lists.length; i++) {
+        if (props.company.sanction_lists[i].id === id) {
+          return symbols.xmark;
+        }
+      }
+      return symbols.check;
+    }
   };
 </script>
 <style></style>

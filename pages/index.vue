@@ -19,7 +19,7 @@
   </div>
 </template>
 <script setup>
-  const setTime = ref("10:00");
+  const setTime = ref(await $fetch("/api/schedule/time"));
   const setReportTime = async function () {
     console.log(setTime.value);
     await $fetch("/api/schedule/time", {

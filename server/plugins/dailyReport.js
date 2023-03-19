@@ -68,8 +68,8 @@ const createMail = function () {
 
   let message = {
     from: useRuntimeConfig().public.email,
-    to: "icko15.8@gmail.com",
-    subject: "Daily Report📄",
+    to: "'Sanction List Checker ✅' <icko15.8@gmail.com>",
+    subject: "Daily Report 📄",
     html: mail,
   };
 
