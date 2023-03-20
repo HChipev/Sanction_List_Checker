@@ -9,5 +9,5 @@ export default defineEventHandler(async (event) => {
     .select("time")
     .match({ id: 1 })
     .single();
-  return data;
+  return data.time;
 });
