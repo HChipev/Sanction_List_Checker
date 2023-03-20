@@ -23,6 +23,7 @@ export default defineNitroPlugin(async (nitroApp) => {
     `${minutes} ${hours} * * *`,
     dailyCheck
   );
+  dailyCheck();
 });
 
 const dailyCheck = async function () {
@@ -38,29 +39,29 @@ const dailyCheck = async function () {
       EIK: allCompaniesData[i].EIK,
       ["Company Name"]: allCompaniesData[i].company_name,
       List1: allCompaniesData[i].sanction_lists.find((list) => list.id === 1)
-        ? "❌"
-        : "✔",
+        ? "✔"
+        : "❌",
       List2: allCompaniesData[i].sanction_lists.find((list) => list.id === 2)
-        ? "❌"
-        : "✔",
+        ? "✔"
+        : "❌",
       List3: allCompaniesData[i].sanction_lists.find((list) => list.id === 3)
-        ? "❌"
-        : "✔",
+        ? "✔"
+        : "❌",
       List4: allCompaniesData[i].sanction_lists.find((list) => list.id === 4)
-        ? "❌"
-        : "✔",
+        ? "✔"
+        : "❌",
       List5: allCompaniesData[i].sanction_lists.find((list) => list.id === 5)
-        ? "❌"
-        : "✔",
+        ? "✔"
+        : "❌",
       List6: allCompaniesData[i].sanction_lists.find((list) => list.id === 6)
-        ? "❌"
-        : "✔",
+        ? "✔"
+        : "❌",
       List7: allCompaniesData[i].sanction_lists.find((list) => list.id === 7)
-        ? "❌"
-        : "✔",
+        ? "✔"
+        : "❌",
       List8: allCompaniesData[i].sanction_lists.find((list) => list.id === 8)
-        ? "❌"
-        : "✔",
+        ? "✔"
+        : "❌",
       ["Last Checked"]: new Date(
         allCompaniesData[i].last_checked
       ).toLocaleString(),

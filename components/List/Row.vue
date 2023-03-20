@@ -150,10 +150,10 @@
     if (props.company.sanction_lists) {
       for (let i = 0; i < props.company.sanction_lists.length; i++) {
         if (props.company.sanction_lists[i].id === id) {
-          return symbols.xmark;
+          return symbols.check;
         }
       }
-      return symbols.check;
+      return symbols.xmark;
     }
   };
 </script>
