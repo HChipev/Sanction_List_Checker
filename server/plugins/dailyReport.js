@@ -6,7 +6,7 @@ let hours, minutes;
 export default defineNitroPlugin(async (nitroApp) => {
   nitroApp.hooks.addHooks({
     "update:api/schedule/time": async () => {
-      const time = await $fetch("/api/schedule/time");
+      const { data: time } = await $fetch("/api/schedule/time");
       [hours, minutes] = time.split(":");
       schedule.rescheduleJob(
         "dailyReportTime",
@@ -16,7 +16,7 @@ export default defineNitroPlugin(async (nitroApp) => {
     },
   });
 
-  const time = await $fetch("/api/schedule/time");
+  const { data: time } = await $fetch("/api/schedule/time");
   [hours, minutes] = time.split(":");
   schedule.scheduleJob(
     "dailyReportTime",

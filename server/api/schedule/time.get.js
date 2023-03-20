@@ -4,8 +4,10 @@ const supabase = createClient(
   useRuntimeConfig().public.supabase.key
 );
 export default defineEventHandler(async (event) => {
-  const {
-    data: { time },
-  } = await supabase.from("Schedule").select("time").match({ id: 1 }).single();
-  return time;
+  const { data } = await supabase
+    .from("Schedule")
+    .select("time")
+    .match({ id: 1 })
+    .single();
+  return data;
 });
