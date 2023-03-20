@@ -31,6 +31,12 @@
           "id": 8,
           "name": "(BG-List)",
           "order": 999
+        },
+        {
+          "docCount": 37,
+          "id": 3,
+          "name": "(EU-List)",
+          "order": 999
         }
       ]
     }
