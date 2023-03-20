@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
   const { time } = await readBody(event);
   const { validationError } = schema.validate({ time });
 
-  const { data, error } = await supabase
+  const { data: existingTime, error } = await supabase
     .from("Schedule")
     .select("time")
     .match({ id: 1 });
@@ -24,5 +24,5 @@ export default defineEventHandler(async (event) => {
   }
 
   useNitroApp().hooks.callHook("update:api/schedule/time");
-  return { data, error, validationError };
+  return { existingTime, error, validationError };
 });

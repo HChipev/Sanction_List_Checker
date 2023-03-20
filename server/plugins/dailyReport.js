@@ -23,7 +23,6 @@ export default defineNitroPlugin(async (nitroApp) => {
     `${minutes} ${hours} * * *`,
     dailyCheck
   );
-  dailyCheck();
 });
 
 const dailyCheck = async function () {
