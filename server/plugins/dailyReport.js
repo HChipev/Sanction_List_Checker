@@ -16,13 +16,13 @@ export default defineNitroPlugin(async (nitroApp) => {
     },
   });
 
-  const { data: time } = await $fetch("/api/schedule/time");
-  [hours, minutes] = time.split(":");
-  schedule.scheduleJob(
-    "dailyReportTime",
-    `${minutes} ${hours} * * *`,
-    dailyCheck
-  );
+  // const { data: time } = await $fetch("/api/schedule/time");
+  // [hours, minutes] = time.split(":");
+  // schedule.scheduleJob(
+  //   "dailyReportTime",
+  //   `${minutes} ${hours} * * *`,
+  //   dailyCheck
+  // );
 });
 
 const dailyCheck = async function () {
