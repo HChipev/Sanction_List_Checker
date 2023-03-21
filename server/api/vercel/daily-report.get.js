@@ -4,6 +4,7 @@ export default eventHandler(async () => {
   await dailyCheck();
   console.log("Daily report sent!");
   console.log(useRuntimeConfig().public.email);
+  console.log(useRuntimeConfig().public.password);
   return {
     statusCode: 200,
   };
