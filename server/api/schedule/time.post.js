@@ -1,13 +1,15 @@
-import { createClient } from "@supabase/supabase-js";
+// import { createClient } from "@supabase/supabase-js";
 import Joi from "joi";
-const supabase = createClient(
-  useRuntimeConfig().public.supabase.url,
-  useRuntimeConfig().public.supabase.key
-);
+// const supabase = createClient(
+//   useRuntimeConfig().public.supabase.url,
+//   useRuntimeConfig().public.supabase.key
+// );
+import { serverSupabaseClient } from "#supabase/server";
 const schema = Joi.object({
   time: Joi.string().required(),
 });
 export default defineEventHandler(async (event) => {
+  const supabase = serverSupabaseClient(event);
   const { time } = await readBody(event);
   const { validationError } = schema.validate({ time });
 
