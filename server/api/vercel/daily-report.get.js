@@ -1,11 +1,11 @@
 import nodemailer from "nodemailer";
 import mailGenerator from "mailgen";
-export default async function handler() {
+export default eventHandler(async () => {
   await dailyCheck();
   console.log("Daily report sent!");
-  console.log("Second log");
+  console.log(useRuntimeConfig().public.email);
   return { statusCode: 200 };
-}
+});
 
 const dailyCheck = async function () {
   await $fetch("/api/companies/check/all");
