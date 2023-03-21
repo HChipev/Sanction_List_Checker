@@ -25,6 +25,6 @@ export default defineEventHandler(async (event) => {
     await supabase.from("Schedule").insert([{ id: 1, time: time }]);
   }
 
-  useNitroApp().hooks.callHook("update:api/schedule/time");
+  // useNitroApp().hooks.callHook("update:api/schedule/time");
   return { existingTime, error, validationError };
 });
