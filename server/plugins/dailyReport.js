@@ -13,6 +13,7 @@ export default defineNitroPlugin(async (nitroApp) => {
         `${minutes} ${hours} * * *`,
         dailyCheck
       );
+      console.log("Daily report time updated!");
     },
   });
 
@@ -23,11 +24,13 @@ export default defineNitroPlugin(async (nitroApp) => {
     `${minutes} ${hours} * * *`,
     dailyCheck
   );
+  console.log("Daily report time init!");
 });
 
 const dailyCheck = async function () {
   await $fetch("/api/companies/check/all");
   const { data } = await $fetch("/api/companies/all");
+  console.log(data);
   const allCompaniesData = data.filter((company) => {
     return company.sanction_lists.length > 0;
   });
@@ -66,17 +69,32 @@ const dailyCheck = async function () {
       ).toLocaleString(),
     });
   }
-  createMail(allCompaniesReport);
+  await createMail(allCompaniesReport);
 };
 
 //* Mail logic
-const createMail = function (allCompaniesReport) {
+const createMail = async function (allCompaniesReport) {
   let transporter = nodemailer.createTransport({
-    service: "Gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
     auth: {
       user: useRuntimeConfig().public.email,
       pass: useRuntimeConfig().public.password,
     },
+  });
+
+  await new Promise((resolve, reject) => {
+    // verify connection configuration
+    transporter.verify(function (error, success) {
+      if (error) {
+        console.log(error);
+        reject(error);
+      } else {
+        console.log("Server is ready to take our messages");
+        resolve(success);
+      }
+    });
   });
 
   const mailGen = new mailGenerator({
@@ -106,5 +124,16 @@ const createMail = function (allCompaniesReport) {
     html: mail,
   };
 
-  transporter.sendMail(message);
+  await new Promise((resolve, reject) => {
+    // send mail
+    transporter.sendMail(message, (err, info) => {
+      if (err) {
+        console.error(err);
+        reject(err);
+      } else {
+        console.log(info);
+        resolve(info);
+      }
+    });
+  });
 };
