@@ -1,7 +1,8 @@
-export default function handler() {
+export default defineEventHandler(async (event) => {
   dailyCheck();
   console.log("Daily report sent!");
-}
+});
+
 const dailyCheck = async function () {
   await $fetch("/api/companies/check/all");
   const { data } = await $fetch("/api/companies/all");
