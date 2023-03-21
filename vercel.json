@@ -1,8 +1,8 @@
 {
   "crons": [
     {
-      "path": "/api/vercel/daily-report",
-      "schedule": "0 9 * * *"
+      "path": "/api/dailyReport",
+      "schedule": "0 6 * * *"
     }
   ]
 }
