@@ -17,14 +17,18 @@ export default defineNitroPlugin(async (nitroApp) => {
     },
   });
 
-  const time = await $fetch("/api/schedule/time");
-  [hours, minutes] = time.split(":");
-  schedule.scheduleJob(
-    "dailyReportTime",
-    `${minutes} ${hours} * * *`,
-    dailyCheck
-  );
-  console.log("Daily report time init!");
+  if (!schedule.scheduledJobs.dailyReportTime) {
+    const time = await $fetch("/api/schedule/time");
+    [hours, minutes] = time.split(":");
+    schedule.scheduleJob(
+      "dailyReportTime",
+      `${minutes} ${hours} * * *`,
+      dailyCheck
+    );
+    console.log("Daily report time init!");
+  } else {
+    console.log("Daily report time already init!");
+  }
 });
 
 const dailyCheck = async function () {
