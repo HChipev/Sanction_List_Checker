@@ -1,9 +1,9 @@
 import nodemailer from "nodemailer";
 import mailGenerator from "mailgen";
-export default async function dailyReport() {
+export default async function handler() {
   await dailyCheck();
   console.log("Daily report sent!");
-  console.log(useRuntimeConfig().public.email);
+  console.log("Second log");
   return { statusCode: 200 };
 }
 
