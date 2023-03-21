@@ -10,6 +10,7 @@ export default eventHandler(async () => {
 const dailyCheck = async function () {
   await $fetch("/api/companies/check/all");
   const { data } = await $fetch("/api/companies/all");
+  console.log(data);
   const allCompaniesData = data.filter((company) => {
     return company.sanction_lists.length > 0;
   });
@@ -48,6 +49,7 @@ const dailyCheck = async function () {
       ).toLocaleString(),
     });
   }
+  console.log(allCompaniesReport);
   createMail(allCompaniesReport);
 };
 
