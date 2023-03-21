@@ -1,6 +1,7 @@
 export default defineEventHandler(async (event) => {
   dailyCheck();
   console.log("Daily report sent!");
+  return { message: "Daily report sent!" };
 });
 
 const dailyCheck = async function () {
