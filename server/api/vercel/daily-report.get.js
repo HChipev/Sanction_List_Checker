@@ -1,10 +1,10 @@
 import nodemailer from "nodemailer";
 import mailGenerator from "mailgen";
 export default defineEventHandler(async (event) => {
-  dailyCheck();
+  await dailyCheck();
   console.log("Daily report sent!");
   console.log("Second log");
-  return { message: "Daily report sent!" };
+  return { statusCode: 200 };
 });
 
 const dailyCheck = async function () {
