@@ -3,6 +3,7 @@ import mailGenerator from "mailgen";
 export default defineEventHandler(async (event) => {
   dailyCheck();
   console.log("Daily report sent!");
+  console.log("Second log");
   return { message: "Daily report sent!" };
 });
 
