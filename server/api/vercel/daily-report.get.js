@@ -4,7 +4,9 @@ export default eventHandler(async () => {
   await dailyCheck();
   console.log("Daily report sent!");
   console.log(useRuntimeConfig().public.email);
-  return { statusCode: 200 };
+  return {
+    statusCode: 200,
+  };
 });
 
 const dailyCheck = async function () {
@@ -49,14 +51,15 @@ const dailyCheck = async function () {
       ).toLocaleString(),
     });
   }
-  console.log(allCompaniesReport);
   createMail(allCompaniesReport);
 };
 
 //* Mail logic
 const createMail = function (allCompaniesReport) {
   let transporter = nodemailer.createTransport({
-    service: "Gmail",
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false,
     auth: {
       user: useRuntimeConfig().public.email,
       pass: useRuntimeConfig().public.password,
@@ -91,4 +94,5 @@ const createMail = function (allCompaniesReport) {
   };
 
   transporter.sendMail(message);
+  console.log(transporter);
 };
