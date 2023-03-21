@@ -2,9 +2,6 @@ import nodemailer from "nodemailer";
 import mailGenerator from "mailgen";
 export default eventHandler(async () => {
   await dailyCheck();
-  console.log("Daily report sent!");
-  console.log(useRuntimeConfig().public.email);
-  console.log(useRuntimeConfig().public.password);
   return {
     statusCode: 200,
   };
@@ -12,11 +9,7 @@ export default eventHandler(async () => {
 
 const dailyCheck = async function () {
   await $fetch("/api/companies/check/all");
-  const { data } = await $fetch("/api/companies/all");
-  console.log(data);
-  const allCompaniesData = data.filter((company) => {
-    return company.sanction_lists.length > 0;
-  });
+  const { data: allCompaniesData } = await $fetch("/api/companies/all");
 
   const allCompaniesReport = [];
   for (let i = 0; i < allCompaniesData.length; i++) {
@@ -57,6 +50,9 @@ const dailyCheck = async function () {
 
 //* Mail logic
 const createMail = async function (allCompaniesReport) {
+  const { data } = await $fetch("/api/emails/all");
+  const emailsList = data.map((email) => email.email);
+
   let transporter = nodemailer.createTransport({
     host: "smtp.gmail.com",
     port: 587,
@@ -71,10 +67,8 @@ const createMail = async function (allCompaniesReport) {
     // verify connection configuration
     transporter.verify(function (error, success) {
       if (error) {
-        console.log(error);
         reject(error);
       } else {
-        console.log("Server is ready to take our messages");
         resolve(success);
       }
     });
@@ -102,7 +96,7 @@ const createMail = async function (allCompaniesReport) {
 
   let message = {
     from: `"Sanction List Checker" <${useRuntimeConfig().public.email}>`,
-    to: "icko15.8@gmail.com",
+    to: emailsList,
     subject: "Daily Report 📄",
     html: mail,
   };
@@ -111,10 +105,8 @@ const createMail = async function (allCompaniesReport) {
     // send mail
     transporter.sendMail(message, (err, info) => {
       if (err) {
-        console.error(err);
         reject(err);
       } else {
-        console.log(info);
         resolve(info);
       }
     });

@@ -14,6 +14,17 @@
       }
     )
     .subscribe();
+
+  useSupabaseClient()
+    .channel("refreshEmails")
+    .on(
+      "postgres_changes",
+      { event: "*", schema: "public", table: "Emails" },
+      () => {
+        refreshNuxtData("allEmails");
+      }
+    )
+    .subscribe();
 </script>
 <style>
   * {
