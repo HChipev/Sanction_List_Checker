@@ -1,7 +1,11 @@
 <template>
   <div class="min-h-screen min-w-screen flex flex-col items-center">
-    <AuthLogin />
+    <AuthRegister />
   </div>
 </template>
-<script setup></script>
+<script setup>
+  definePageMeta({
+    middleware: ["register"],
+  });
+</script>
 <style></style>
