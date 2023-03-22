@@ -1,10 +1,10 @@
 <template>
   <div
     @click="closeModal"
-    class="absolute w-full h-full bg-black text-white bg-opacity-70 z-20">
+    class="fixed top-0 bottom-0 w-full h-full bg-black text-white bg-opacity-70 z-20">
     <div
       @click.stop
-      class="relative left-1/2 -translate-x-1/2 w-1/3 top-1/3 -translate-y-2/3 rounded-xl bg-primery-color p-3 shadow-2xl shadow-black">
+      class="relative left-0 right-0 w-1/3 top-10 bottom-0 m-auto rounded-xl bg-primery-color p-3 shadow-2xl shadow-black">
       <div class="flex flex-col">
         <div
           class="flex justify-between items-center border-b pb-0.5 border-white">
