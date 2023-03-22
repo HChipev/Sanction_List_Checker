@@ -49,7 +49,7 @@
       errorMessage.value = "";
       setTimeout(() => {
         navigateTo("/");
-      }, 300);
+      }, 500);
     }
   };
 </script>
