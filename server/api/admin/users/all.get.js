@@ -8,5 +8,6 @@ export default defineEventHandler(async (event) => {
   data.users = data.users.filter(
     (user) => user.email !== useRuntimeConfig().public.admin
   );
+  console.log(error);
   return { data, error };
 });
