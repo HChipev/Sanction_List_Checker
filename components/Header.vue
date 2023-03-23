@@ -48,8 +48,6 @@
     const { error } = await useSupabaseAuthClient().auth.signOut();
     if (!error) {
       navigateTo("/login");
-    } else {
-      console.log(error);
     }
   };
 </script>

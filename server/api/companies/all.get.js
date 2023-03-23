@@ -7,10 +7,6 @@ import { serverSupabaseClient } from "#supabase/server";
 
 // );
 export default defineEventHandler(async (event) => {
-  console.log(
-    event.node.req.headers.authorization,
-    useRuntimeConfig().public.token
-  );
   if (
     event.node.req.headers.authorization !== useRuntimeConfig().public.token
   ) {

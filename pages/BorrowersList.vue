@@ -83,7 +83,6 @@
         Authorization: useRuntimeConfig().public.token,
       },
     });
-    console.log(error);
     if (error) {
       errorMessage.value = error.message;
       successMessage.value = "";

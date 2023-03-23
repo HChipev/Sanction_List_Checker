@@ -69,7 +69,6 @@
       errorMessage.value = "";
       emits("close");
     } else {
-      console.log(validationError.details[0].message);
       errorMessage.value =
         validationError?.details[0].message || error?.message;
     }

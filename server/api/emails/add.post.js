@@ -22,7 +22,6 @@ export default defineEventHandler(async (event) => {
 
   const supabase = serverSupabaseClient(event);
   const { email } = await readBody(event);
-  console.log("email", email);
   const { error: validationError } = schema.validate({ email });
   if (validationError) {
     return { validationError };
