@@ -27,6 +27,5 @@
     const { data } = await $fetch("/api/admin/users/all");
     return data;
   });
-  console.log(data);
 </script>
 <style></style>

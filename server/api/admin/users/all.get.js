@@ -1,4 +1,4 @@
-// import { serverSupabaseServiceRole } from "#supabase/server";
+import { serverSupabaseServiceRole } from "#supabase/server";
 // import { createClient } from "@supabase/supabase-js";
 // const supabase = createClient(
 //   useRuntimeConfig().public.supabase.url,
@@ -11,6 +11,6 @@ export default defineEventHandler(async (event) => {
   data.users = data.users.filter(
     (user) => user.email !== useRuntimeConfig().public.admin
   );
-  console.log(error);
+
   return { data, error };
 });

@@ -11,7 +11,7 @@
         class="text-black mt-0.5 border-0 rounded-lg h-7 focus:ring-primery-color focus:border-primery-color"
         type="email"
         placeholder="example@abc.com" />
-      <label class="text-lg" for="name">Name</label>
+      <label class="text-lg mt-2" for="name">Name</label>
       <input
         v-model="newUser.name"
         class="text-black mt-0.5 border-0 rounded-lg h-7 focus:ring-primery-color focus:border-primery-color"
