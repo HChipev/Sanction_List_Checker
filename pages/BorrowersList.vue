@@ -36,6 +36,14 @@
               icon="fa-solid fa-magnifying-glass"
           /></ClientOnly>
         </button>
+        <button
+          @click="sendReport"
+          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center ml-2">
+          Send Email Report
+          <ClientOnly
+            ><font-awesome-icon class="w-8 h-8 ml-2" icon="fa-solid fa-share" />
+          </ClientOnly>
+        </button>
       </div>
     </div>
     <Transition>
@@ -58,6 +66,19 @@
     } else {
       errorMessage.value = "";
       successMessage.value = "All companies checked successfully!";
+      setTimeout(() => {
+        successMessage.value = "";
+      }, 3000);
+    }
+  };
+  const sendReport = async function () {
+    const { error } = await $fetch("/api/vercel/daily-report");
+    if (error) {
+      errorMessage.value = "Error sending report!";
+      successMessage.value = "";
+    } else {
+      errorMessage.value = "";
+      successMessage.value = "Report sent successfully!";
       setTimeout(() => {
         successMessage.value = "";
       }, 3000);
