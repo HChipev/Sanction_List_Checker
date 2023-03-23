@@ -15,6 +15,7 @@ export default defineEventHandler(async (event) => {
   ) {
     return { error: { message: "Wrong authorization header" } };
   }
+
   const supabase = serverSupabaseClient(event);
   const { EIK, company_name } = await readBody(event);
   const { error: validationError } = schema.validate({ EIK, company_name });
@@ -25,5 +26,12 @@ export default defineEventHandler(async (event) => {
   const { data, error } = await supabase
     .from("Companies")
     .insert([{ EIK: EIK, company_name: company_name }]);
+
+  await $fetch(`/api/companies/check/${EIK}`, {
+    headers: {
+      Authorization: useRuntimeConfig().public.token,
+    },
+  });
+
   return { data, error };
 });
