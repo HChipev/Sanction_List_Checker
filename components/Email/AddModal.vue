@@ -61,6 +61,9 @@
       body: {
         email: newEmail.value,
       },
+      headers: {
+        Authorization: useRuntimeConfig().public.token,
+      },
     });
     if (!error && !validationError) {
       errorMessage.value = "";

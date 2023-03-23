@@ -69,6 +69,9 @@
       ? await $fetch("/api/admin/users/add", {
           method: "POST",
           body: { ...newUser },
+          headers: {
+            Authorization: useRuntimeConfig().public.token,
+          },
         })
       : { error: { message: "Validation Error" } };
     if (error || validationError) {

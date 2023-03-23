@@ -35,7 +35,11 @@
 </template>
 <script setup>
   const { data: companies } = await useAsyncData("allCompanies", async () => {
-    const { data } = await $fetch("/api/companies/all");
+    const { data } = await $fetch("/api/companies/all", {
+      headers: {
+        Authorization: useRuntimeConfig().public.token,
+      },
+    });
     return data;
   });
 </script>

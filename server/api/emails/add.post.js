@@ -14,6 +14,12 @@ const schema = Joi.object({
     .required(),
 });
 export default defineEventHandler(async (event) => {
+  if (
+    event.node.req.headers.authorization !== useRuntimeConfig().public.token
+  ) {
+    return { error: { message: "Wrong authorization header" } };
+  }
+
   const supabase = serverSupabaseClient(event);
   const { email } = await readBody(event);
   console.log("email", email);

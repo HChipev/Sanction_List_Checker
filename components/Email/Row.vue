@@ -24,6 +24,9 @@
   const deleteRow = async function (email) {
     await $fetch(`api/emails/delete/${email}`, {
       method: "DELETE",
+      headers: {
+        Authorization: useRuntimeConfig().public.token,
+      },
     });
   };
 </script>

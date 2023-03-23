@@ -24,7 +24,11 @@
 </template>
 <script setup>
   const { data } = await useAsyncData("allUsers", async () => {
-    const { data } = await $fetch("/api/admin/users/all");
+    const { data } = await $fetch("/api/admin/users/all", {
+      headers: {
+        Authorization: useRuntimeConfig().public.token,
+      },
+    });
     return data;
   });
 </script>

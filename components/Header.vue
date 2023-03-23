@@ -6,7 +6,7 @@
       <div v-if="useSupabaseUser().value" class="flex justify-around">
         <NuxtLink
           to="/"
-          class="rounded-2xl font-semibold border border-gray-dark text-xl py-0.5 px-5 mr-2 bg-white text-primery-color">
+          class="rounded-2xl font-semibold border border-gray-dark text-xl py-0.5 px-5 bg-white text-primery-color">
           Home
         </NuxtLink>
         <NuxtLink

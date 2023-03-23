@@ -133,7 +133,11 @@
     company: Object,
   });
   const search = async function (EIK) {
-    await $fetch(`api/companies/check/${EIK}`);
+    await $fetch(`api/companies/check/${EIK}`, {
+      headers: {
+        Authorization: useRuntimeConfig().public.token,
+      },
+    });
   };
   const symbols = reactive({
     check: "fa-solid fa-check",
@@ -143,6 +147,9 @@
   const deleteRow = async function (EIK) {
     await $fetch(`api/companies/delete/${EIK}`, {
       method: "DELETE",
+      headers: {
+        Authorization: useRuntimeConfig().public.token,
+      },
     });
   };
 

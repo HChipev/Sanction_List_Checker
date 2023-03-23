@@ -7,6 +7,7 @@ export default defineNuxtConfig({
       email: process.env.EMAIL,
       password: process.env.PASSWORD,
       admin: process.env.ADMIN,
+      token: process.env.TOKEN,
     },
     private: {
       supabase: {

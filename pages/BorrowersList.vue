@@ -3,32 +3,33 @@
     <h1 class="text-3xl font-bold italic text-primery-color my-5">
       Borrowers List
     </h1>
-    <ListTable class="w-full px-5" />
-    <div class="flex flex-col items-center">
-      <Transition>
-        <p v-if="errorMessage" class="text-red-500 text-2xl font-semibold mt-4">
-          {{ errorMessage }}
-        </p>
-      </Transition>
-      <Transition>
-        <p
-          v-if="successMessage"
-          class="text-green-500 text-2xl font-semibold mt-4">
-          {{ successMessage }}
-        </p>
-      </Transition>
-      <div class="flex">
+    <div class="flex justify-between w-full">
+      <div class="flex flex-col items-start px-5 justify-center w-full">
+        <Transition>
+          <p v-if="errorMessage" class="text-red-500 text-3xl font-semibold">
+            {{ errorMessage }}
+          </p>
+        </Transition>
+        <Transition>
+          <p
+            v-if="successMessage"
+            class="text-green-500 text-3xl font-semibold">
+            {{ successMessage }}
+          </p>
+        </Transition>
+      </div>
+      <div class="flex justify-end w-full px-5">
         <button
-          @click="openedModal = true"
+          @click="sendReport"
           class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-2">
-          Add New Borrower
+          Send Email Report
           <ClientOnly
-            ><font-awesome-icon class="w-8 h-8 ml-2" icon="fa-solid fa-plus"
-          /></ClientOnly>
+            ><font-awesome-icon class="w-8 h-8 ml-2" icon="fa-solid fa-share" />
+          </ClientOnly>
         </button>
         <button
           @click="checkAll"
-          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center ml-2">
+          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-2">
           Check All
           <ClientOnly
             ><font-awesome-icon
@@ -37,15 +38,16 @@
           /></ClientOnly>
         </button>
         <button
-          @click="sendReport"
-          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center ml-2">
-          Send Email Report
+          @click="openedModal = true"
+          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center">
+          Add New Borrower
           <ClientOnly
-            ><font-awesome-icon class="w-8 h-8 ml-2" icon="fa-solid fa-share" />
-          </ClientOnly>
+            ><font-awesome-icon class="w-8 h-8 ml-2" icon="fa-solid fa-plus"
+          /></ClientOnly>
         </button>
       </div>
     </div>
+    <ListTable class="w-full px-5" />
     <Transition>
       <ListAddModal v-if="openedModal" @close="openedModal = false" />
     </Transition>
@@ -56,7 +58,11 @@
   const errorMessage = ref("");
   const successMessage = ref("");
   const checkAll = async function () {
-    const { error, error2 } = await $fetch("/api/companies/check/all");
+    const { error, error2 } = await $fetch("/api/companies/check/all", {
+      headers: {
+        Authorization: useRuntimeConfig().public.token,
+      },
+    });
     if (error) {
       errorMessage.value = error;
       successMessage.value = "";
@@ -72,9 +78,14 @@
     }
   };
   const sendReport = async function () {
-    const { error } = await $fetch("/api/vercel/daily-report");
+    const { error } = await $fetch("/api/companies/send-report", {
+      headers: {
+        Authorization: useRuntimeConfig().public.token,
+      },
+    });
+    console.log(error);
     if (error) {
-      errorMessage.value = "Error sending report!";
+      errorMessage.value = error.message;
       successMessage.value = "";
     } else {
       errorMessage.value = "";

@@ -22,7 +22,11 @@
 </template>
 <script setup>
   const { data: emails } = await useAsyncData("allEmails", async () => {
-    const { data } = await $fetch("/api/emails/all");
+    const { data } = await $fetch("/api/emails/all", {
+      headers: {
+        Authorization: useRuntimeConfig().public.token,
+      },
+    });
     return data;
   });
 </script>

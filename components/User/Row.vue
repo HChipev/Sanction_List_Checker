@@ -29,6 +29,9 @@
   const deleteRow = async function (id) {
     const { error } = await $fetch(`api/admin/users/delete/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: useRuntimeConfig().public.token,
+      },
     });
     if (!error) {
       emits("delete");

@@ -70,6 +70,9 @@
       body: {
         ...newBorrower,
       },
+      headers: {
+        Authorization: useRuntimeConfig().public.token,
+      },
     });
     if (!error && !validationError) {
       errorMessage.value = "";

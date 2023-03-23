@@ -10,6 +10,11 @@ const schema = Joi.object({
   company_name: Joi.string().required(),
 });
 export default defineEventHandler(async (event) => {
+  if (
+    event.node.req.headers.authorization !== useRuntimeConfig().public.token
+  ) {
+    return { error: { message: "Wrong authorization header" } };
+  }
   const supabase = serverSupabaseClient(event);
   const { EIK, company_name } = await readBody(event);
   const { error: validationError } = schema.validate({ EIK, company_name });

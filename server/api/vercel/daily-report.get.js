@@ -8,8 +8,16 @@ export default eventHandler(async () => {
 });
 
 const dailyCheck = async function () {
-  await $fetch("/api/companies/check/all");
-  const { data: allCompaniesData } = await $fetch("/api/companies/all");
+  await $fetch("/api/companies/check/all", {
+    headers: {
+      Authorization: useRuntimeConfig().public.token,
+    },
+  });
+  const { data: allCompaniesData } = await $fetch("/api/companies/all", {
+    headers: {
+      Authorization: useRuntimeConfig().public.token,
+    },
+  });
 
   const allCompaniesReport = [];
   for (let i = 0; i < allCompaniesData.length; i++) {
@@ -50,7 +58,11 @@ const dailyCheck = async function () {
 
 //* Mail logic
 const createMail = async function (allCompaniesReport) {
-  const { data } = await $fetch("/api/emails/all");
+  const { data } = await $fetch("/api/emails/all", {
+    headers: {
+      Authorization: useRuntimeConfig().public.token,
+    },
+  });
   const emailsList = data.map((email) => email.email);
 
   let transporter = nodemailer.createTransport({
