@@ -18,7 +18,7 @@
           </p>
         </Transition>
       </div>
-      <div class="flex justify-end w-full px-5">
+      <div class="flex justify-end w-fit whitespace-nowrap px-5">
         <button
           @click="sendReport"
           class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-2">
@@ -39,12 +39,29 @@
         </button>
         <button
           @click="openedModal = true"
-          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center">
+          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-2">
           Add New Borrower
           <ClientOnly
             ><font-awesome-icon class="w-8 h-8 ml-2" icon="fa-solid fa-plus"
           /></ClientOnly>
         </button>
+        <div
+          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-2">
+          <div class="relative flex max-w-min">
+            <input
+              type="file"
+              multiple
+              class="opacity-0 absolute cursor-pointer top-0 left-0 w-full h-full"
+              accept="csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+              @change="importExcel" />
+            <span class="cursor-pointer text-3xl flex">
+              Import From Excel
+              <font-awesome-icon
+                class="w-8 h-8 ml-2"
+                icon="fa-solid fa-file-excel" />
+            </span>
+          </div>
+        </div>
       </div>
     </div>
     <ListTable class="w-full px-5" />
@@ -89,6 +106,37 @@
     } else {
       errorMessage.value = "";
       successMessage.value = "Report sent successfully!";
+      setTimeout(() => {
+        successMessage.value = "";
+      }, 3000);
+    }
+  };
+
+  const importExcel = async function (event) {
+    const file = event.target.files[0];
+    errorMessage.value = "";
+    if (
+      file.type !==
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" &&
+      file.type !== "application/vnd.ms-excel" &&
+      file.type !== "text/csv"
+    ) {
+      errorMessage.value = "Please select a valid file!";
+      return;
+    }
+    const { error } = await $fetch("/api/companies/import", {
+      method: "POST",
+      headers: {
+        Authorization: useRuntimeConfig().public.token,
+      },
+      body: { data: file },
+    });
+    if (error) {
+      errorMessage.value = error.message;
+      successMessage.value = "";
+    } else {
+      errorMessage.value = "";
+      successMessage.value = "Imported successfully!";
       setTimeout(() => {
         successMessage.value = "";
       }, 3000);
