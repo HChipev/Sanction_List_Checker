@@ -37,7 +37,7 @@
             <input
               @change="importExcel"
               type="file"
-              class="opacity-0 absolute cursor-pointer top-0 left-0 w-full h-full"
+              class="excel opacity-0 absolute cursor-pointer top-0 left-0 w-full h-full"
               accept="csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
             <span class="cursor-pointer text-3xl flex">
               Import From Excel
@@ -174,6 +174,7 @@
         successMessage.value = "";
       }, 3000);
     }
+    document.querySelector(".excel").value = "";
   };
 </script>
 <style>
