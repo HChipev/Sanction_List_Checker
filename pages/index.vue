@@ -7,18 +7,6 @@
       <Transition>
         <EmailTable class="w-full px-5" />
       </Transition>
-      <Transition>
-        <p v-if="errorMessage" class="text-red-500 text-2xl font-semibold mt-4">
-          {{ errorMessage }}
-        </p>
-      </Transition>
-      <Transition>
-        <p
-          v-if="successMessage"
-          class="text-green-500 text-2xl font-semibold mt-4">
-          {{ successMessage }}
-        </p>
-      </Transition>
       <button
         @click="openedModal = true"
         class="rounded-2xl bg-primery-color text-white text-3xl font-semibold mx-6 py-0.5 my-5 flex justify-center items-center">
@@ -35,8 +23,6 @@
 </template>
 <script setup>
   const openedModal = ref(false);
-  const errorMessage = ref("");
-  const successMessage = ref("");
 </script>
 <style>
   .v-enter-active,

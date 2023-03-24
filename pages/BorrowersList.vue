@@ -3,22 +3,8 @@
     <h1 class="text-3xl font-bold italic text-primery-color my-5">
       Borrowers List
     </h1>
-    <div class="flex justify-between w-full">
-      <div class="flex flex-col items-start px-5 justify-center w-full">
-        <Transition>
-          <p v-if="errorMessage" class="text-red-500 text-3xl font-semibold">
-            {{ errorMessage }}
-          </p>
-        </Transition>
-        <Transition>
-          <p
-            v-if="successMessage"
-            class="text-green-500 text-3xl font-semibold">
-            {{ successMessage }}
-          </p>
-        </Transition>
-      </div>
-      <div class="flex justify-end w-fit whitespace-nowrap px-5">
+    <div class="flex flex-col items-center w-full">
+      <div class="flex w-full justify-center whitespace-nowrap px-5">
         <button
           @click="sendReport"
           class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-2">
@@ -49,19 +35,34 @@
           class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-2">
           <div class="relative flex max-w-min">
             <input
+              @change="importExcel"
               type="file"
-              multiple
               class="opacity-0 absolute cursor-pointer top-0 left-0 w-full h-full"
-              accept="csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-              @change="importExcel" />
+              accept="csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
             <span class="cursor-pointer text-3xl flex">
               Import From Excel
-              <font-awesome-icon
-                class="w-8 h-8 ml-2"
-                icon="fa-solid fa-file-excel" />
+              <ClientOnly>
+                <font-awesome-icon
+                  class="w-8 h-8 ml-2"
+                  icon="fa-solid fa-file-excel" />
+              </ClientOnly>
             </span>
           </div>
         </div>
+      </div>
+      <div class="flex flex-col items-center px-5 mb-5 justify-center w-full">
+        <Transition>
+          <p v-if="errorMessage" class="text-red-500 text-3xl font-semibold">
+            {{ errorMessage }}
+          </p>
+        </Transition>
+        <Transition>
+          <p
+            v-if="successMessage"
+            class="text-green-500 text-3xl font-semibold">
+            {{ successMessage }}
+          </p>
+        </Transition>
       </div>
     </div>
     <ListTable class="w-full px-5" />
@@ -71,6 +72,7 @@
   </div>
 </template>
 <script setup>
+  import { read, utils } from "xlsx";
   const openedModal = ref(false);
   const errorMessage = ref("");
   const successMessage = ref("");
@@ -83,9 +85,15 @@
     if (error) {
       errorMessage.value = error;
       successMessage.value = "";
+      setTimeout(() => {
+        errorMessage.value = "";
+      }, 5000);
     } else if (error2) {
       errorMessage.value = error2;
       successMessage.value = "";
+      setTimeout(() => {
+        errorMessage.value = "";
+      }, 5000);
     } else {
       errorMessage.value = "";
       successMessage.value = "All companies checked successfully!";
@@ -103,6 +111,9 @@
     if (error) {
       errorMessage.value = error.message;
       successMessage.value = "";
+      setTimeout(() => {
+        errorMessage.value = "";
+      }, 5000);
     } else {
       errorMessage.value = "";
       successMessage.value = "Report sent successfully!";
@@ -115,6 +126,14 @@
   const importExcel = async function (event) {
     const file = event.target.files[0];
     errorMessage.value = "";
+    successMessage.value = "";
+    if (!file) {
+      errorMessage.value = "Please select a file!";
+      setTimeout(() => {
+        errorMessage.value = "";
+      }, 5000);
+      return;
+    }
     if (
       file.type !==
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" &&
@@ -122,18 +141,32 @@
       file.type !== "text/csv"
     ) {
       errorMessage.value = "Please select a valid file!";
+      setTimeout(() => {
+        errorMessage.value = "";
+      }, 5000);
       return;
     }
+
+    const bufferedFile = await file.arrayBuffer();
+    const workbook = read(bufferedFile);
+    const sheetName = workbook.SheetNames[0];
+    const worksheet = workbook.Sheets[sheetName];
+    const data = utils.sheet_to_json(worksheet);
+
     const { error } = await $fetch("/api/companies/import", {
       method: "POST",
       headers: {
         Authorization: useRuntimeConfig().public.token,
       },
-      body: { data: file },
+      body: data,
     });
+
     if (error) {
       errorMessage.value = error.message;
       successMessage.value = "";
+      setTimeout(() => {
+        errorMessage.value = "";
+      }, 5000);
     } else {
       errorMessage.value = "";
       successMessage.value = "Imported successfully!";
