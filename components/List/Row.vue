@@ -113,7 +113,7 @@
     <td class="px-2 py-4 border-x border-primery-color text-center">
       <button
         @click="search(company.EIK)"
-        class="bg-primery-color rounded-2xl font-semibold text-2xl text-white py-0.5 px-8">
+        class="bg-primery-color rounded-2xl font-semibold text-2xl text-white py-0.5 px-8 transition-all ease-in-out duration-500 hover:translate-x-2 hover:-translate-y-1 hover:shadow-[-6px_8px_8px_0px] hover:shadow-gray-dark">
         Check
       </button>
     </td>
@@ -121,7 +121,7 @@
       <button @click="deleteRow(company.EIK)" class="py-0.5">
         <ClientOnly
           ><font-awesome-icon
-            class="text-red-700 w-7 h-7"
+            class="text-red-700 w-7 h-7 transition-all duration-500 ease-in-out opacity-60 hover:opacity-100"
             icon="fa-solid fa-trash"
         /></ClientOnly>
       </button>

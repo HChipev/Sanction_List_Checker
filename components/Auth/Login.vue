@@ -25,7 +25,7 @@
       </p>
       <button
         @click="logIn"
-        class="px-5 py-0.5 mt-4 rounded-2xl bg-white text-primery-color text-lg"
+        class="px-5 py-0.5 mt-4 rounded-2xl bg-white text-primery-color text-lg transition-all ease-in-out duration-500 hover:translate-x-2 hover:-translate-y-1"
         type="button">
         Login
       </button>

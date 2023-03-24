@@ -9,7 +9,7 @@
       </Transition>
       <button
         @click="openedModal = true"
-        class="rounded-2xl bg-primery-color text-white text-3xl font-semibold mx-6 py-0.5 my-5 flex justify-center items-center">
+        class="rounded-2xl bg-primery-color text-white text-3xl font-semibold mx-6 py-0.5 my-5 flex justify-center items-center transition-all ease-in-out duration-500 hover:translate-x-2 hover:-translate-y-1 hover:shadow-[-6px_8px_8px_0px] hover:shadow-gray-dark">
         Add Email
         <ClientOnly
           ><font-awesome-icon class="w-8 h-8 ml-2" icon="fa-solid fa-plus"

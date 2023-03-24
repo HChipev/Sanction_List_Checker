@@ -9,7 +9,7 @@
       <button @click="deleteRow(email.email)" class="py-0.5">
         <ClientOnly
           ><font-awesome-icon
-            class="text-red-700 w-7 h-7"
+            class="text-red-700 w-7 h-7 transition-all duration-500 ease-in-out opacity-60 hover:opacity-100"
             icon="fa-solid fa-trash"
         /></ClientOnly>
       </button>

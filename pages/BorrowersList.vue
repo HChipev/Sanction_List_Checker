@@ -7,7 +7,7 @@
       <div class="flex w-full justify-center whitespace-nowrap px-5">
         <button
           @click="sendReport"
-          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-2">
+          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-4 transition-all ease-in-out duration-500 hover:translate-x-2 hover:-translate-y-1 hover:shadow-[-6px_8px_8px_0px] hover:shadow-gray-dark">
           Send Email Report
           <ClientOnly
             ><font-awesome-icon class="w-8 h-8 ml-2" icon="fa-solid fa-share" />
@@ -15,7 +15,7 @@
         </button>
         <button
           @click="checkAll"
-          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-2">
+          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-4 transition-all ease-in-out duration-500 hover:translate-x-2 hover:-translate-y-1 hover:shadow-[-6px_8px_8px_0px] hover:shadow-gray-dark">
           Check All
           <ClientOnly
             ><font-awesome-icon
@@ -25,14 +25,14 @@
         </button>
         <button
           @click="openedModal = true"
-          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-2">
+          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-4 transition-all ease-in-out duration-500 hover:translate-x-2 hover:-translate-y-1 hover:shadow-[-6px_8px_8px_0px] hover:shadow-gray-dark">
           Add New Borrower
           <ClientOnly
             ><font-awesome-icon class="w-8 h-8 ml-2" icon="fa-solid fa-plus"
           /></ClientOnly>
         </button>
         <div
-          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-2">
+          class="rounded-2xl bg-primery-color text-white text-3xl font-semibold px-4 py-0.5 my-5 flex justify-center items-center mr-4 transition-all ease-in-out duration-500 hover:translate-x-2 hover:-translate-y-1 hover:shadow-[-6px_8px_8px_0px] hover:shadow-gray-dark">
           <div class="relative flex max-w-min">
             <input
               @change="importExcel"

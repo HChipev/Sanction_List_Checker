@@ -6,38 +6,82 @@
       <div v-if="useSupabaseUser().value" class="flex justify-around">
         <NuxtLink
           to="/"
-          class="rounded-2xl font-semibold border border-gray-dark text-xl py-0.5 px-5 bg-white text-primery-color">
-          Home
+          class="relative text-xl inline-flex items-center justify-start px-5 py-0.5 ml-2 overflow-hidden font-bold rounded-full group">
+          <span
+            class="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
+          <span
+            class="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-white opacity-100 group-hover:-translate-x-8"></span>
+          <span
+            class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-primery-color"
+            >Home</span
+          >
+          <span
+            class="absolute inset-0 border-2 border-white rounded-full"></span>
         </NuxtLink>
         <NuxtLink
           to="/BorrowersList"
-          class="rounded-2xl font-semibold border border-gray-dark text-xl py-0.5 px-5 ml-2 bg-white text-primery-color">
-          Borrowers List
+          class="relative text-xl inline-flex items-center justify-start px-5 py-0.5 ml-2 overflow-hidden font-bold rounded-full group">
+          <span
+            class="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
+          <span
+            class="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-white opacity-100 group-hover:-translate-x-4"></span>
+          <span
+            class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-primery-color"
+            >Borrowers List</span
+          >
+          <span
+            class="absolute inset-0 border-2 border-white rounded-full"></span>
         </NuxtLink>
         <NuxtLink
           v-if="
             useSupabaseUser().value.email === useRuntimeConfig().public.admin
           "
           to="/register"
-          class="rounded-2xl font-semibold border border-gray-dark text-xl py-0.5 px-5 ml-2 bg-white text-primery-color">
-          Register New User
+          class="relative text-xl inline-flex items-center justify-start px-5 py-0.5 ml-2 overflow-hidden font-bold rounded-full group">
+          <span
+            class="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
+          <span
+            class="absolute top-0 left-0 w-52 h-56 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-60 -translate-y-28 bg-white opacity-100 group-hover:translate-x-4"></span>
+          <span
+            class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-primery-color">
+            Register New User</span
+          >
+          <span
+            class="absolute inset-0 border-2 border-white rounded-full"></span>
         </NuxtLink>
         <NuxtLink
           v-if="
             useSupabaseUser().value.email === useRuntimeConfig().public.admin
           "
           to="/delete"
-          class="rounded-2xl font-semibold border border-gray-dark text-xl py-0.5 px-5 ml-2 bg-white text-primery-color">
-          Delete Users
+          class="relative text-xl inline-flex items-center justify-start px-5 py-0.5 ml-2 overflow-hidden font-bold rounded-full group">
+          <span
+            class="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
+          <span
+            class="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-white opacity-100 group-hover:-translate-x-8"></span>
+          <span
+            class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-primery-color"
+            >Delete Users</span
+          >
+          <span
+            class="absolute inset-0 border-2 border-white rounded-full"></span>
         </NuxtLink>
         <button
           @click="logout"
-          class="rounded-full font-semibold border border-gray-dark text-xl p-2 ml-2 bg-white text-primery-color">
-          <ClientOnly>
-            <font-awesome-icon
-              class="text-primery-color h-5 w-5"
-              icon="far-regular fa-arrow-right-from-bracket" />
-          </ClientOnly>
+          class="relative inline-flex items-center justify-start p-3 ml-2 overflow-hidden font-bold rounded-full group">
+          <span
+            class="w-32 h-32 rotate-45 translate-x-12 -translate-y-2 absolute left-0 top-0 bg-white opacity-[3%]"></span>
+          <span
+            class="absolute top-0 left-0 w-48 h-48 -mt-1 transition-all duration-500 ease-in-out rotate-45 -translate-x-56 -translate-y-24 bg-white opacity-100 group-hover:-translate-x-8"></span>
+          <span
+            class="relative w-full text-left text-white transition-colors duration-200 ease-in-out group-hover:text-primery-color"
+            ><ClientOnly>
+              <font-awesome-icon
+                class="h-5 w-5"
+                icon="far-regular fa-arrow-right-from-bracket" /> </ClientOnly
+          ></span>
+          <span
+            class="absolute inset-0 border-2 border-white rounded-full"></span>
         </button>
       </div>
     </Transition>

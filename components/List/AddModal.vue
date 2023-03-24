@@ -12,7 +12,7 @@
           <ClientOnly
             ><font-awesome-icon
               @click="closeModal"
-              class="transition-all duration-300 text-white w-8 h-8 ml-3 hover:text-red-600 font-bold cursor-pointer"
+              class="transition-all duration-500 ease-in-out text-white w-8 h-8 ml-3 hover:text-red-600 font-bold cursor-pointer"
               icon="fa-solid fa-xmark"
           /></ClientOnly>
         </div>
@@ -35,12 +35,12 @@
           <div class="flex justify-around items-center">
             <button
               @click="addNewBorrower"
-              class="bg-blue-500 rounded-2xl font-semibold text-2xl text-white py-0.5 px-8 mt-5">
+              class="bg-blue-500 rounded-2xl font-semibold text-2xl text-white py-0.5 px-8 mt-5 transition-all duration-500 ease-in-out hover:animate-pulse">
               Save
             </button>
             <button
               @click="closeModal"
-              class="bg-red-500 rounded-2xl font-semibold text-2xl text-white py-0.5 px-8 mt-5">
+              class="bg-red-500 rounded-2xl font-semibold text-2xl text-white py-0.5 px-8 mt-5 transition-all duration-500 ease-in-out hover:animate-pulse">
               Cancel
             </button>
           </div>
