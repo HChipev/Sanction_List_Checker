@@ -1,5 +1,7 @@
 <template>
-  <tr class="bg-white border-b border-primery-color">
+  <tr
+    class="bg-white border-b border-primery-color"
+    :class="`row-${company.EIK}`">
     <th
       scope="row"
       class="px-6 py-2 font-medium text-lg text-gray-900 whitespace-nowrap">
@@ -112,7 +114,7 @@
     </td>
     <td class="px-2 py-4 border-x border-primery-color text-center">
       <button
-        @click="search(company.EIK)"
+        @click="check(company.EIK)"
         class="bg-primery-color rounded-2xl font-semibold text-2xl text-white py-0.5 px-8 transition-all ease-in-out duration-500 hover:translate-x-2 hover:-translate-y-1 hover:shadow-[-6px_8px_8px_0px] hover:shadow-gray-dark">
         Check
       </button>
@@ -129,15 +131,36 @@
   </tr>
 </template>
 <script setup>
+  import html2canvas from "html2canvas";
+  import { saveAs } from "file-saver";
   const props = defineProps({
     company: Object,
   });
-  const search = async function (EIK) {
+  const check = async function (EIK) {
     await $fetch(`api/companies/check/${EIK}`, {
       headers: {
         Authorization: useRuntimeConfig().public.token,
       },
     });
+    setTimeout(async () => {
+      const canvas1 = await html2canvas(document.querySelector(".head"));
+      const canvas2 = await html2canvas(document.querySelector(`.row-${EIK}`));
+      const canvas = document.createElement("canvas");
+      canvas.width = canvas1.width;
+      canvas.height = canvas1.height + canvas2.height;
+      const ctx = canvas.getContext("2d");
+      ctx.drawImage(canvas1, 0, 0);
+      ctx.drawImage(canvas2, 0, canvas1.height);
+
+      canvas.toBlob(function (blob) {
+        saveAs(
+          blob,
+          `${props.company.EIK}_${props.company.company_name}_${new Date()
+            .toLocaleTimeString(new Date())
+            .substring(0, 5)}_${new Date().toLocaleDateString(new Date())}.png`
+        );
+      });
+    }, 1000);
   };
   const symbols = reactive({
     check: "fa-solid fa-check",
