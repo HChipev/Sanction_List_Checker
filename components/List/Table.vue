@@ -16,6 +16,7 @@
             <th scope="col" class="px-6 py-3 border-x border-white">List6</th>
             <th scope="col" class="px-6 py-3 border-x border-white">List7</th>
             <th scope="col" class="px-6 py-3 border-x border-white">List8</th>
+            <th scope="col" class="px-6 py-3 border-x border-white">List9</th>
             <th scope="col" class="px-6 py-3 border-x border-white">
               Last Checked
             </th>

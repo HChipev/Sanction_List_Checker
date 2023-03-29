@@ -108,6 +108,19 @@
           :icon="displaySymbol(8)"
       /></ClientOnly>
     </td>
+    <td class="p-2 border-x border-primery-color">
+      <ClientOnly
+        ><font-awesome-icon
+          class="w-8 h-8"
+          :class="
+            displaySymbol(9) === symbols.check
+              ? 'text-green-500'
+              : 'text-red-500'
+          "
+          :icon="displaySymbol(9)"
+      /></ClientOnly>
+    </td>
+
     <td
       class="px-6 py-2 font-medium text-lg text-gray-900 border-x border-primery-color">
       {{ new Date(company.last_checked).toLocaleString() }}
@@ -138,9 +151,11 @@
   });
   const check = async function (EIK) {
     await $fetch(`api/companies/check/${EIK}`, {
+      method: "POST",
       headers: {
         Authorization: useRuntimeConfig().public.token,
       },
+      body: props.company.company_name,
     });
     setTimeout(async () => {
       const canvas1 = await html2canvas(document.querySelector(".head"));

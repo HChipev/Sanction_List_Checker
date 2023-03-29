@@ -38,7 +38,7 @@
               @change="importExcel"
               type="file"
               class="excel opacity-0 absolute cursor-pointer top-0 left-0 w-full h-full"
-              accept="csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" />
+              accept="csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, application/vnd.oasis.opendocument.spreadsheet" />
             <span class="cursor-pointer text-3xl flex">
               Import From Excel
               <ClientOnly>
@@ -65,7 +65,7 @@
         </Transition>
       </div>
     </div>
-    <ListTable class="w-full px-5" />
+    <ListTable class="w-full px-5 mb-10" />
     <Transition>
       <ListAddModal v-if="openedModal" @close="openedModal = false" />
     </Transition>
@@ -138,7 +138,8 @@
       file.type !==
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" &&
       file.type !== "application/vnd.ms-excel" &&
-      file.type !== "text/csv"
+      file.type !== "text/csv" &&
+      file.type !== "application/vnd.oasis.opendocument.spreadsheet"
     ) {
       errorMessage.value = "Please select a valid file!";
       setTimeout(() => {
@@ -152,13 +153,22 @@
     const sheetName = workbook.SheetNames[0];
     const worksheet = workbook.Sheets[sheetName];
     const data = utils.sheet_to_json(worksheet);
+    const filteredData = [];
+    for (const d of data) {
+      if (d["ЕИК"] && d["Име на латиница"]) {
+        filteredData.push({
+          EIK: d["ЕИК"],
+          company_name: d["Име на латиница"],
+        });
+      }
+    }
 
     const { error } = await $fetch("/api/companies/import", {
       method: "POST",
       headers: {
         Authorization: useRuntimeConfig().public.token,
       },
-      body: data,
+      body: filteredData,
     });
 
     if (error) {

@@ -28,9 +28,11 @@ export default defineEventHandler(async (event) => {
     .insert([{ EIK: EIK, company_name: company_name }]);
 
   await $fetch(`/api/companies/check/${EIK}`, {
+    method: "POST",
     headers: {
       Authorization: useRuntimeConfig().public.token,
     },
+    body: company_name,
   });
 
   return { data, error };

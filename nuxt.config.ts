@@ -11,6 +11,10 @@ export default defineNuxtConfig({
       password: process.env.PASSWORD,
       admin: process.env.ADMIN,
       token: process.env.TOKEN,
+      apis: {
+        username: process.env.APIS_USERNAME,
+        password: process.env.APIS_PASSWORD,
+      },
     },
     private: {
       supabase: {

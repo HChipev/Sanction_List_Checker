@@ -53,6 +53,9 @@ const dailyCheck = async function () {
         List8: allCompaniesData[i].sanction_lists.find((list) => list.id === 8)
           ? "✔"
           : "❌",
+        List9: allCompaniesData[i].sanction_lists.find((list) => list.id === 9)
+          ? "✔"
+          : "❌",
         ["Last Checked"]: new Date(
           allCompaniesData[i].last_checked
         ).toLocaleString(),

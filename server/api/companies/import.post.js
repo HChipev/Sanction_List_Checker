@@ -22,21 +22,21 @@ export default defineEventHandler(async (event) => {
     return { error: { message: "No new companies to import!" } };
   }
 
-  for (const row of data) {
-    row.company_name = row.Name;
-    delete row.Name;
-  }
+  console.log(data);
 
   const { data: companiesToCheck, error } = await serverSupabaseClient(event)
     .from("Companies")
     .insert(data)
     .select("*");
+  console.log(companiesToCheck);
 
   for (const company of companiesToCheck) {
     await $fetch(`/api/companies/check/${company.EIK}`, {
+      method: "POST",
       headers: {
         Authorization: useRuntimeConfig().public.token,
       },
+      body: company.company_name,
     });
   }
 
