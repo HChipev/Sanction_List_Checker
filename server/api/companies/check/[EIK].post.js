@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   const supabase = serverSupabaseClient(event);
   const { EIK } = event.context.params;
   //! name if refactoring is needed
-  const name = await readBody(event);
+  const { name, owners } = await readBody(event);
 
   const apis = await $fetch("https://web-api.apis.bg/api/auth/token", {
     method: "POST",
@@ -28,23 +28,42 @@ export default defineEventHandler(async (event) => {
     },
   });
 
+  const sanctionListsSet = new Set();
+
   const data = await $fetch("https://web-api.apis.bg/api/Sanctions/Search", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${apis.accessToken}`,
     },
     body: {
-      searchText: EIK,
+      searchText: name,
     },
   });
-
-  const sanctionListsSet = new Set();
   for (const subject of data.subjects) {
     sanctionListsSet.add(subject.sanctionListType);
   }
+
+  for (const owner of owners) {
+    const dataOwners = await $fetch(
+      "https://web-api.apis.bg/api/Sanctions/Search",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${apis.accessToken}`,
+        },
+        body: {
+          searchText: owner,
+        },
+      }
+    );
+    for (const subject of dataOwners.subjects) {
+      sanctionListsSet.add(subject.sanctionListType);
+    }
+  }
+
   const sanctionLists = [];
-  for (const list of sanctionListsSet) {
-    sanctionLists.push({ id: list });
+  for (const id of sanctionListsSet) {
+    sanctionLists.push({ id: id });
   }
 
   const { error } = await supabase

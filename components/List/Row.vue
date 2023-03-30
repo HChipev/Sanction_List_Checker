@@ -9,8 +9,18 @@
     </th>
     <th
       scope="row"
-      class="px-6 py-2 font-medium text-lg text-gray-900 border-x border-primery-color">
+      class="px-6 py-2 font-medium text-lg text-gray-900 border-x border-primery-color whitespace-nowrap">
       {{ company.company_name }}
+    </th>
+    <th
+      scope="row"
+      class="px-6 py-2 font-medium text-lg text-gray-900 border-x border-primery-color">
+      <p
+        v-for="(owner, index) in company.owners"
+        :key="index"
+        class="whitespace-nowrap">
+        {{ owner }}
+      </p>
     </th>
     <td class="p-2 border-x border-primery-color">
       <ClientOnly
@@ -122,7 +132,7 @@
     </td>
 
     <td
-      class="px-6 py-2 font-medium text-lg text-gray-900 border-x border-primery-color">
+      class="px-6 py-2 font-medium text-lg text-gray-900 border-x border-primery-color whitespace-nowrap">
       {{ new Date(company.last_checked).toLocaleString() }}
     </td>
     <td class="px-2 py-4 border-x border-primery-color text-center">
@@ -155,7 +165,7 @@
       headers: {
         Authorization: useRuntimeConfig().public.token,
       },
-      body: props.company.company_name,
+      body: { name: props.company.company_name, owners: props.company.owners },
     });
     setTimeout(async () => {
       const canvas1 = await html2canvas(document.querySelector(".head"));

@@ -8,27 +8,15 @@ export default defineEventHandler(async (event) => {
   }
 
   let data = await readBody(event);
-  const { data: companies, getError } = await serverSupabaseClient(event)
-    .from("Companies")
-    .select("EIK");
-  if (getError) {
-    return { error: { ...getError } };
-  }
-
-  const existingEIKs = companies.map((company) => Number(company.EIK));
-  data = data.filter((row) => !existingEIKs.includes(row.EIK));
-
-  if (!data.length) {
-    return { error: { message: "No new companies to import!" } };
-  }
-
-  console.log(data);
 
   const { data: companiesToCheck, error } = await serverSupabaseClient(event)
     .from("Companies")
     .insert(data)
     .select("*");
-  console.log(companiesToCheck);
+
+  if (error) {
+    return { error: { message: "No new companies to import!" } };
+  }
 
   for (const company of companiesToCheck) {
     await $fetch(`/api/companies/check/${company.EIK}`, {
@@ -36,7 +24,7 @@ export default defineEventHandler(async (event) => {
       headers: {
         Authorization: useRuntimeConfig().public.token,
       },
-      body: company.company_name,
+      body: { name: company.company_name, owners: company.owners },
     });
   }
 

@@ -8,6 +8,9 @@
           <tr>
             <th scope="col" class="px-6 py-3 border-x border-white">EIK</th>
             <th scope="col" class="px-6 py-3 border-x border-white">Company</th>
+            <th scope="col" class="px-6 py-3 border-x border-white">
+              Company Owners
+            </th>
             <th scope="col" class="px-6 py-3 border-x border-white">List1</th>
             <th scope="col" class="px-6 py-3 border-x border-white">List2</th>
             <th scope="col" class="px-6 py-3 border-x border-white">List3</th>

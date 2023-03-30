@@ -26,7 +26,7 @@ export default defineEventHandler(async (event) => {
       headers: {
         Authorization: useRuntimeConfig().public.token,
       },
-      body: company.company_name,
+      body: { name: company.company_name, owners: company.owners },
     });
   }
 

@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const supabase = serverSupabaseClient(event);
-  const { EIK, company_name } = await readBody(event);
+  const { EIK, company_name, owners } = await readBody(event);
   const { error: validationError } = schema.validate({ EIK, company_name });
   if (validationError) {
     return { validationError };
@@ -25,14 +25,14 @@ export default defineEventHandler(async (event) => {
 
   const { data, error } = await supabase
     .from("Companies")
-    .insert([{ EIK: EIK, company_name: company_name }]);
+    .insert([{ EIK: EIK, company_name: company_name, owners: owners }]);
 
   await $fetch(`/api/companies/check/${EIK}`, {
     method: "POST",
     headers: {
       Authorization: useRuntimeConfig().public.token,
     },
-    body: company_name,
+    body: { name: company_name, owners: owners },
   });
 
   return { data, error };

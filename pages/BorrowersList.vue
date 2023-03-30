@@ -159,10 +159,15 @@
         filteredData.push({
           EIK: d["ЕИК"],
           company_name: d["Име на латиница"],
+          owners: [d["Транслитерация"]],
         });
+      } else if (d["Транслитерация"]) {
+        const { EIK, company_name, owners } = filteredData.pop();
+        owners.push(d["Транслитерация"]);
+        filteredData.push({ EIK, company_name, owners });
       }
     }
-
+    console.log(filteredData);
     const { error } = await $fetch("/api/companies/import", {
       method: "POST",
       headers: {
