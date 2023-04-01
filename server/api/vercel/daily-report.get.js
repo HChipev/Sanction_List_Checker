@@ -53,7 +53,7 @@ const dailyCheck = async function () {
         : "❌",
       ["Last Checked"]: new Date(
         allCompaniesData[i].last_checked
-      ).toUTCString(),
+      ).toLocaleString(),
     });
   }
   await createMail(allCompaniesReport);
